@@ -2,14 +2,11 @@ import { responseSuccess } from "../common/helpers/response.helper.js";
 import { phimService } from "../services/phim.service.js";
 
 export const phimController = {
-  async getDanhSachBanner(req, res, next) {
+  async LayDanhSachPhim(req, res, next) {
     try {
-      const result = await phimService.getDanhSachBanner(req);
+      const result = await phimService.LayDanhSachPhim(req);
 
-      const response = responseSuccess(
-        result,
-        "Lấy danh sách banner thành công",
-      );
+      const response = responseSuccess(result, "Lấy danh sách phim thành công");
 
       res.status(response.statusCode).json(response);
     } catch (error) {
@@ -17,25 +14,9 @@ export const phimController = {
     }
   },
 
-  async getDanhSachPhim(req, res, next) {
+  async LayDanhSachPhimTheoNgay(req, res, next) {
     try {
-      const result = await phimService.getDanhSachPhim(req);
-
-      const response = responseSuccess(
-        result,
-        "Lấy danh sách phim thành công",
-      );
-
-      res.status(response.statusCode).json(response);
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  async getDanhSachPhimTheoNgay(req, res, next) {
-    try {
-      const result =
-        await phimService.getDanhSachPhimTheoNgay(req);
+      const result = await phimService.LayDanhSachPhimTheoNgay(req);
 
       const response = responseSuccess(
         result,
@@ -48,45 +29,13 @@ export const phimController = {
     }
   },
 
-  async themPhim(req, res, next) {
+  async LayDanhSachBanner(req, res, next) {
     try {
-      const result = await phimService.themPhim(req);
+      const result = await phimService.LayDanhSachBanner(req);
 
       const response = responseSuccess(
         result,
-        "Thêm phim thành công",
-      );
-
-      res.status(201).json(response);
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  async themPhimUploadHinh(req, res, next) {
-    try {
-      const result =
-        await phimService.themPhimUploadHinh(req);
-
-      const response = responseSuccess(
-        result,
-        "Thêm phim và upload hình thành công",
-      );
-
-      res.status(201).json(response);
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  async capNhatPhimUpload(req, res, next) {
-    try {
-      const result =
-        await phimService.capNhatPhimUpload(req);
-
-      const response = responseSuccess(
-        result,
-        "Cập nhật phim thành công",
+        "Lấy danh sách banner thành công",
       );
 
       res.status(response.statusCode).json(response);
@@ -95,14 +44,11 @@ export const phimController = {
     }
   },
 
-  async xoaPhim(req, res, next) {
+  async ThemPhimUploadHinh(req, res, next) {
     try {
-      await phimService.xoaPhim(req);
+      const result = await phimService.ThemPhimUploadHinh(req);
 
-      const response = responseSuccess(
-        null,
-        "Xóa phim thành công",
-      );
+      const response = responseSuccess(result, "Thêm phim thành công");
 
       res.status(response.statusCode).json(response);
     } catch (error) {
@@ -110,14 +56,11 @@ export const phimController = {
     }
   },
 
-  async xp(req, res, next) {
+  async CapNhatPhimUploadHinh(req, res, next) {
     try {
-      await phimService.xp(req);
+      const result = await phimService.CapNhatPhimUploadHinh(req);
 
-      const response = responseSuccess(
-        null,
-        "Xóa phim thành công",
-      );
+      const response = responseSuccess(result, "Cập nhật phim thành công");
 
       res.status(response.statusCode).json(response);
     } catch (error) {
@@ -125,15 +68,23 @@ export const phimController = {
     }
   },
 
-  async getThongTinPhim(req, res, next) {
+  async LayThongTinPhim(req, res, next) {
     try {
-      const result =
-        await phimService.getThongTinPhim(req);
+      const result = await phimService.LayThongTinPhim(req);
 
-      const response = responseSuccess(
-        result,
-        "Lấy thông tin phim thành công",
-      );
+      const response = responseSuccess(result, "Lấy thông tin phim thành công");
+
+      res.status(response.statusCode).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async XoaPhim(req, res, next) {
+    try {
+      const result = await phimService.XoaPhim(req);
+
+      const response = responseSuccess(result, "Xóa phim thành công");
 
       res.status(response.statusCode).json(response);
     } catch (error) {

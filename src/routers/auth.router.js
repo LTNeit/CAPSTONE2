@@ -10,6 +10,4 @@ authRouter.post("/login", authController.login);
 
 authRouter.post("/register", authController.register);
 
-authRouter.get("/get-info", authCookie, authController.getInfo);
-
 export default authRouter;

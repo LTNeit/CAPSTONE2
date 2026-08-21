@@ -3,10 +3,35 @@ export const nguoiDungSwagger = {
     get: {
       tags: ["QuanLyNguoiDung"],
       summary: "Lấy danh sách người dùng",
-      description: "Lấy danh sách tất cả người dùng.",
+      description: "Lấy danh sách người dùng có hỗ trợ phân trang.",
+      parameters: [
+        {
+          name: "page",
+          in: "query",
+          required: false,
+          schema: {
+            type: "integer",
+            default: 1,
+          },
+          description: "Số trang",
+        },
+        {
+          name: "pageSize",
+          in: "query",
+          required: false,
+          schema: {
+            type: "integer",
+            default: 3,
+          },
+          description: "Số lượng người dùng trên mỗi trang",
+        },
+      ],
       responses: {
         200: {
           description: "Lấy danh sách người dùng thành công",
+        },
+        400: {
+          description: "Bad request",
         },
       },
     },
@@ -56,21 +81,45 @@ export const nguoiDungSwagger = {
     get: {
       tags: ["QuanLyNguoiDung"],
       summary: "Tìm kiếm người dùng",
-      description: "Tìm kiếm người dùng theo họ tên, email hoặc số điện thoại.",
+      description: "Tìm kiếm người dùng theo từ khóa và hỗ trợ phân trang.",
       parameters: [
         {
           name: "tu_khoa",
           in: "query",
-          required: true,
+          required: false,
           schema: {
             type: "string",
           },
           example: "Nguyen",
+          description: "Từ khóa tìm kiếm theo họ tên, email hoặc số điện thoại",
+        },
+        {
+          name: "page",
+          in: "query",
+          required: false,
+          schema: {
+            type: "integer",
+            default: 1,
+          },
+          description: "Số trang",
+        },
+        {
+          name: "pageSize",
+          in: "query",
+          required: false,
+          schema: {
+            type: "integer",
+            default: 3,
+          },
+          description: "Số lượng người dùng trên mỗi trang",
         },
       ],
       responses: {
         200: {
           description: "Tìm kiếm người dùng thành công",
+        },
+        400: {
+          description: "Bad request",
         },
       },
     },

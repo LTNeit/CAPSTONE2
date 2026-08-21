@@ -3,10 +3,35 @@ export const phimSwagger = {
     get: {
       tags: ["QuanLyPhim"],
       summary: "Lấy danh sách phim",
-      description: "Lấy danh sách tất cả phim.",
+      description: "Lấy danh sách phim có hỗ trợ phân trang.",
+      parameters: [
+        {
+          name: "page",
+          in: "query",
+          required: false,
+          schema: {
+            type: "integer",
+            default: 1,
+          },
+          description: "Số trang",
+        },
+        {
+          name: "pageSize",
+          in: "query",
+          required: false,
+          schema: {
+            type: "integer",
+            default: 3,
+          },
+          description: "Số lượng phim trên mỗi trang",
+        },
+      ],
       responses: {
         200: {
           description: "Lấy danh sách phim thành công",
+        },
+        400: {
+          description: "Bad request",
         },
       },
     },

@@ -1,8 +1,8 @@
 import { authSwagger } from "./auth.swagger.js";
-import { quanLyPhimSwagger } from "./phim.swagger.js";
-import { quanLyRapSwagger } from "./rap.swagger.js";
+import { phimSwagger } from "./phim.swagger.js";
+import { rapSwagger } from "./rap.swagger.js";
 import { datVeSwagger } from "./datVe.swagger.js";
-import { quanLyNguoiDungSwagger } from "./nguoiDung.swagger.js";
+import { nguoiDungSwagger } from "./nguoiDung.swagger.js";
 
 export const swaggerDocument = {
   openapi: "3.0.4",
@@ -15,16 +15,16 @@ export const swaggerDocument = {
 
   servers: [
     {
-      url: "http://localhost:3069/api",
+      url: "http://localhost:3000/api",
       description: "Local dev server",
     },
   ],
 
   paths: {
     ...authSwagger,
-    ...quanLyPhimSwagger,
-    ...quanLyRapSwagger,
+    ...phimSwagger,
+    ...rapSwagger,
     ...datVeSwagger,
-    ...quanLyNguoiDungSwagger,
+    ...nguoiDungSwagger,
   },
 };

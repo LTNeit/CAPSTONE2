@@ -31,10 +31,6 @@ phimRouter.put(
 
 phimRouter.get("/LayThongTinPhim/:ma_phim", phimController.LayThongTinPhim);
 
-phimRouter.delete(
-  "/XoaPhim/:ma_phim",
-  authCookie,
-  phimController.XoaPhim,
-);
+phimRouter.delete("/XoaPhim/:ma_phim", authCookie, phimController.XoaPhim);
 
 export default phimRouter;

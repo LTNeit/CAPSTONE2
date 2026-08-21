@@ -14,7 +14,7 @@ const adapter = new PrismaMariaDb({
 });
 const prisma = new PrismaClient({
   adapter,
-  omit: { nguoi_dung: { mat_khau: true } },
+  omit: {nguoiDung: { mat_khau: true } },
 });
 
 try {
