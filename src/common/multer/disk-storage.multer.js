@@ -4,7 +4,7 @@ import fs from "fs";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const userId = req.user?.nguoi_dung_id || "unknown";
+    const userId = req.user?.tai_khoan || "unknown";
     let folderType = "posts";
 
     if (file.fieldname === "avatar") {

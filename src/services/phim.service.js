@@ -1,6 +1,22 @@
 import { prisma } from "../common/prisma/connect.prisma.js";
 import { BadRequestError } from "../common/helpers/exception.helper.js";
+import { buildQueryPrismaHelper } from "../common/helpers/build-query-prisma.helper.js";
+async function kiemTraAdmin(req) {
+  const taiKhoan = req.user?.tai_khoan;
 
+  const nguoiDung = await prisma.NguoiDung.findUnique({
+    where: {
+      tai_khoan: Number(taiKhoan),
+    },
+    select: {
+      loai_nguoi_dung: true,
+    },
+  });
+
+  if (!nguoiDung || nguoiDung.loai_nguoi_dung !== "Admin") {
+    throw new BadRequestError("Bạn không có quyền thực hiện chức năng này");
+  }
+}
 export const phimService = {
   async LayDanhSachPhim(req) {
     const { page, pageSize, index, where } = buildQueryPrismaHelper(req);
@@ -48,6 +64,7 @@ export const phimService = {
   },
 
   async ThemPhimUploadHinh(req) {
+    await kiemTraAdmin(req);
     const {
       ten_phim,
       trailer,
@@ -70,15 +87,18 @@ export const phimService = {
         hinh_anh: req.file?.filename,
         mo_ta,
         ngay_khoi_chieu: ngay_khoi_chieu ? new Date(ngay_khoi_chieu) : null,
-        danh_gia,
-        hot,
-        dang_chieu,
-        sap_chieu,
+
+        danh_gia: danh_gia ? Number(danh_gia) : null,
+
+        hot: hot === "true",
+        dang_chieu: dang_chieu === "true",
+        sap_chieu: sap_chieu === "true",
       },
     });
   },
 
   async CapNhatPhimUploadHinh(req) {
+    await kiemTraAdmin(req);
     const { ma_phim } = req.params;
 
     const {
@@ -92,21 +112,29 @@ export const phimService = {
       sap_chieu,
     } = req.body;
 
+    const data = {
+      ten_phim,
+      trailer,
+      mo_ta,
+
+      ngay_khoi_chieu: ngay_khoi_chieu ? new Date(ngay_khoi_chieu) : null,
+
+      danh_gia: danh_gia ? Number(danh_gia) : null,
+
+      hot: hot === "true",
+      dang_chieu: dang_chieu === "true",
+      sap_chieu: sap_chieu === "true",
+    };
+
+    if (req.file) {
+      data.hinh_anh = req.file.filename;
+    }
+
     return await prisma.Phim.update({
       where: {
         ma_phim: Number(ma_phim),
       },
-      data: {
-        ten_phim,
-        trailer,
-        hinh_anh: req.file?.filename,
-        mo_ta,
-        ngay_khoi_chieu: ngay_khoi_chieu ? new Date(ngay_khoi_chieu) : null,
-        danh_gia,
-        hot,
-        dang_chieu,
-        sap_chieu,
-      },
+      data,
     });
   },
 
@@ -125,6 +153,7 @@ export const phimService = {
   },
 
   async XoaPhim(req) {
+    await kiemTraAdmin(req);
     const { ma_phim } = req.params;
 
     await prisma.Phim.delete({

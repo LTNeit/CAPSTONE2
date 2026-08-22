@@ -1,5 +1,23 @@
 import { prisma } from "../common/prisma/connect.prisma.js";
+import { buildQueryPrismaHelper } from "../common/helpers/build-query-prisma.helper.js";
+import { BadRequestError } from "../common/helpers/exception.helper.js";
+import bcrypt from "bcrypt";
+async function kiemTraAdmin(req) {
+  const taiKhoan = req.user?.tai_khoan;
 
+  const nguoiDung = await prisma.NguoiDung.findUnique({
+    where: {
+      tai_khoan: Number(taiKhoan),
+    },
+    select: {
+      loai_nguoi_dung: true,
+    },
+  });
+
+  if (!nguoiDung || nguoiDung.loai_nguoi_dung !== "Admin") {
+    throw new BadRequestError("Bạn không có quyền thực hiện chức năng này");
+  }
+}
 export const nguoiDungService = {
   async LayDanhSachNguoiDung(req) {
     const { page, pageSize, index, where } = buildQueryPrismaHelper(req);
@@ -120,6 +138,7 @@ export const nguoiDungService = {
   },
 
   async ThemNguoiDung(req) {
+    await kiemTraAdmin(req);
     const { email, password, ho_ten, so_dt, loai_nguoi_dung } = req.body;
 
     const hashPassword = bcrypt.hashSync(password, 10);
@@ -145,18 +164,48 @@ export const nguoiDungService = {
   async CapNhatThongTin(req) {
     const { tai_khoan } = req.params;
 
+    const taiKhoanCanCapNhat = Number(tai_khoan);
+    const taiKhoanDangDangNhap = Number(req.user?.tai_khoan);
+
+    const nguoiDung = await prisma.NguoiDung.findUnique({
+      where: {
+        tai_khoan: taiKhoanDangDangNhap,
+      },
+      select: {
+        loai_nguoi_dung: true,
+      },
+    });
+
+    if (!nguoiDung) {
+      throw new BadRequestError("Người dùng không tồn tại");
+    }
+
+    const laAdmin = nguoiDung.loai_nguoi_dung === "Admin";
+    const laChinhMinh = taiKhoanCanCapNhat === taiKhoanDangDangNhap;
+
+    if (!laAdmin && !laChinhMinh) {
+      throw new BadRequestError(
+        "Bạn không có quyền cập nhật thông tin người dùng này",
+      );
+    }
+
     const { ho_ten, email, so_dt, loai_nguoi_dung } = req.body;
+
+    const data = {
+      ho_ten,
+      email,
+      so_dt,
+    };
+
+    if (laAdmin) {
+      data.loai_nguoi_dung = loai_nguoi_dung;
+    }
 
     return await prisma.NguoiDung.update({
       where: {
-        tai_khoan: Number(tai_khoan),
+        tai_khoan: taiKhoanCanCapNhat,
       },
-      data: {
-        ho_ten: ho_ten,
-        email: email,
-        so_dt: so_dt,
-        loai_nguoi_dung: loai_nguoi_dung,
-      },
+      data: data,
       select: {
         tai_khoan: true,
         ho_ten: true,
@@ -168,6 +217,7 @@ export const nguoiDungService = {
   },
 
   async XoaNguoiDUng(req) {
+    await kiemTraAdmin(req);
     const { tai_khoan } = req.params;
 
     await prisma.NguoiDung.delete({

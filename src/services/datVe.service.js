@@ -45,6 +45,21 @@ export const datVeService = {
   },
 
   async TaoLichChieu(req) {
+    const taiKhoan = req.user?.tai_khoan;
+
+    const nguoiDung = await prisma.NguoiDung.findUnique({
+      where: {
+        tai_khoan: Number(taiKhoan),
+      },
+      select: {
+        loai_nguoi_dung: true,
+      },
+    });
+
+    if (!nguoiDung || nguoiDung.loai_nguoi_dung !== "Admin") {
+      throw new BadRequestError("Bạn không có quyền tạo lịch chiếu");
+    }
+
     const { ma_rap, ma_phim, ngay_gio_chieu, gia_ve } = req.body;
 
     return await prisma.LichChieu.create({

@@ -11,9 +11,9 @@ export const authCookie = async (req, res, next) => {
 
   const decode = verifyAccessToken(accessToken);
 
-  const userExits = await prisma.nguoi_dung.findFirst({
+  const userExits = await prisma.NguoiDung.findFirst({
     where: {
-      id: decode.tai_khoan,
+      tai_khoan: decode.tai_khoan,
     },
   });
 

@@ -1,0 +1,270 @@
+{
+  "info": {
+    "_postman_id": "c0f513b8-e551-497c-a93d-722895bf2abb",
+    "name": "Phim",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45293203",
+    "_collection_link": "https://go.postman.co/collection/45293203-c0f513b8-e551-497c-a93d-722895bf2abb?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "LayDanhSachPhim",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/QuanLyPhim/LayDanhSachPhim?page=1&pageSize=3",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "QuanLyPhim",
+            "LayDanhSachPhim"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LayDanhSachPhimTheoNgay",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"tu_ngay\": \"2026-08-01\",\r\n  \"den_ngay\": \"2026-08-31\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/QuanLyPhim/LayDanhSachPhimTheoNgay",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "QuanLyPhim",
+            "LayDanhSachPhimTheoNgay"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LayDanhSachBanner",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "LayThongTinPhim",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/QuanLyPhim/LayThongTinPhim/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "QuanLyPhim",
+            "LayThongTinPhim",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ThemPhim",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "ten_phim",
+              "value": "Interstellar",
+              "type": "text",
+              "uuid": "b7ea97f6-4d70-4add-ab9f-b496177d1d99"
+            },
+            {
+              "key": "trailer",
+              "value": "https://www.youtube.com/",
+              "type": "text",
+              "uuid": "4361ad62-0e3f-4933-8d39-c9f56885c58d"
+            },
+            {
+              "key": "mo_ta",
+              "value": "Phim khoa học viễn tưởng",
+              "type": "text",
+              "uuid": "2b6d2bcd-6674-4eee-8102-5545f8d42804"
+            },
+            {
+              "key": "ngay_khoi_chieu",
+              "value": "2026-09-20",
+              "type": "text",
+              "uuid": "082e13d4-6396-4dce-b7b4-8af1b2c1eb20"
+            },
+            {
+              "key": "danh_gia",
+              "value": "5",
+              "type": "text",
+              "uuid": "05e4fe4e-09b6-4491-b9e3-2d94b31a1eee"
+            },
+            {
+              "key": "hot",
+              "value": "true",
+              "type": "text",
+              "uuid": "ec68f81d-a929-4616-82a2-ff43e173e4ca"
+            },
+            {
+              "key": "dang_chieu",
+              "value": "false",
+              "type": "text",
+              "uuid": "669c737f-f6cd-46ca-9c48-f594b08cd823"
+            },
+            {
+              "key": "sap_chieu",
+              "value": "true",
+              "type": "text",
+              "uuid": "aafeff56-4d19-416e-9034-1816260107ab"
+            },
+            {
+              "key": "hinh_anh",
+              "type": "file",
+              "uuid": "461a1050-bd70-477f-a12f-677b3286a0ca",
+              "src": "/C:/Users/hohoa/OneDrive/Desktop/interstellar.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/QuanLyPhim/ThemPhimUploadHinh",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "QuanLyPhim",
+            "ThemPhimUploadHinh"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CapNhatPhim",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "ten_phim",
+              "value": "Avengers Endgame 2",
+              "type": "text",
+              "uuid": "b7ea97f6-4d70-4add-ab9f-b496177d1d99"
+            },
+            {
+              "key": "trailer",
+              "value": "https://www.youtube.com/",
+              "type": "text",
+              "uuid": "4361ad62-0e3f-4933-8d39-c9f56885c58d"
+            },
+            {
+              "key": "mo_ta",
+              "value": "Phim khoa học viễn tưởng",
+              "type": "text",
+              "uuid": "2b6d2bcd-6674-4eee-8102-5545f8d42804"
+            },
+            {
+              "key": "ngay_khoi_chieu",
+              "value": "2026-09-20",
+              "type": "text",
+              "uuid": "082e13d4-6396-4dce-b7b4-8af1b2c1eb20"
+            },
+            {
+              "key": "danh_gia",
+              "value": "5",
+              "type": "text",
+              "uuid": "05e4fe4e-09b6-4491-b9e3-2d94b31a1eee"
+            },
+            {
+              "key": "hot",
+              "value": "true",
+              "type": "text",
+              "uuid": "ec68f81d-a929-4616-82a2-ff43e173e4ca"
+            },
+            {
+              "key": "dang_chieu",
+              "value": "false",
+              "type": "text",
+              "uuid": "669c737f-f6cd-46ca-9c48-f594b08cd823"
+            },
+            {
+              "key": "sap_chieu",
+              "value": "true",
+              "type": "text",
+              "uuid": "aafeff56-4d19-416e-9034-1816260107ab"
+            },
+            {
+              "key": "hinh_anh",
+              "type": "file",
+              "uuid": "461a1050-bd70-477f-a12f-677b3286a0ca",
+              "src": "/C:/Users/hohoa/OneDrive/Desktop/interstellar.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/QuanLyPhim/CapNhatPhimUploadHinh/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "QuanLyPhim",
+            "CapNhatPhimUploadHinh",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "XoaPhim",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/QuanLyPhim/XoaPhim/4",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "QuanLyPhim",
+            "XoaPhim",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
